@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KRYO Serie Pertama</title>
+
+  <!-- FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Poppins',sans-serif;
+    }
+
+    body{
+      background:#050505;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    /* BACKGROUND EFFECT */
+
+    .bg{
+      position:fixed;
+      inset:0;
+      z-index:-2;
+      background:
+      radial-gradient(circle at top left, rgba(255,255,255,0.08), transparent 30%),
+      radial-gradient(circle at bottom right, rgba(255,255,255,0.05), transparent 30%),
+      #050505;
+    }
+
+    .blur{
+      position:fixed;
+      width:400px;
+      height:400px;
+      border-radius:50%;
+      background:rgba(255,255,255,0.04);
+      filter:blur(100px);
+      z-index:-1;
+      animation:float 8s ease-in-out infinite;
+    }
+
+    .blur.one{
+      top:-100px;
+      left:-100px;
+    }
+
+    .blur.two{
+      bottom:-120px;
+      right:-100px;
+      animation-delay:2s;
+    }
+
+    @keyframes float{
+      0%,100%{
+        transform:translateY(0px);
+      }
+      50%{
+        transform:translateY(25px);
+      }
+    }
+
+    /* CONTAINER */
+
+    .container{
+      width:100%;
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:40px 20px;
+    }
+
+    .card{
+      width:100%;
+      max-width:1200px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      backdrop-filter:blur(18px);
+      border-radius:35px;
+      overflow:hidden;
+      box-shadow:
+      0 0 40px rgba(255,255,255,0.04),
+      0 20px 80px rgba(0,0,0,0.8);
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      min-height:700px;
+    }
+
+    /* IMAGE */
+
+    .image-side{
+      position:relative;
+      right:15px;
+      overflow:hidden;
+    }
+
+    .image-side img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:1s;
+      filter:brightness(0.7);
+    }
+
+    .card:hover .image-side img{
+      transform:scale(1.05);
+    }
+
+    .image-overlay{
+      position:absolute;
+      inset:0;
+      background:
+      linear-gradient(to right, rgba(5,5,5,0.2), rgba(5,5,5,0.8));
+    }
+
+    /* CONTENT */
+
+    .content{
+      padding:70px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .premium{
+      width:max-content;
+      padding:10px 20px;
+      border-radius:50px;
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.1);
+      color:#d6d6d6;
+      font-size:14px;
+      letter-spacing:2px;
+      margin-bottom:25px;
+      text-transform:uppercase;
+    }
+
+    h1{
+      font-size:65px;
+      line-height:1;
+      margin-bottom:25px;
+      font-weight:800;
+      letter-spacing:-2px;
+    }
+
+    h1 span{
+      color:#bdbdbd;
+    }
+
+    .desc{
+      color:#b8b8b8;
+      font-size:17px;
+      line-height:1.9;
+      margin-bottom:45px;
+      max-width:520px;
+    }
+
+    /* SPECS */
+
+    .specs{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:18px;
+      margin-bottom:45px;
+    }
+
+    .spec{
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:22px;
+      padding:24px;
+      transition:0.4s;
+    }
+
+    .spec:hover{
+      transform:translateY(-6px);
+      background:rgba(255,255,255,0.08);
+      box-shadow:0 10px 35px rgba(255,255,255,0.05);
+    }
+
+    .spec h3{
+      font-size:16px;
+      margin-bottom:10px;
+      color:white;
+    }
+
+    .spec p{
+      color:#bfbfbf;
+      line-height:1.7;
+      font-size:14px;
+    }
+
+    /* BUTTON */
+
+    .btn{
+      width:max-content;
+      text-decoration:none;
+      color:black;
+      background:white;
+      padding:18px 38px;
+      border-radius:100px;
+      font-weight:700;
+      font-size:16px;
+      transition:0.4s;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .btn::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(90deg,#ffffff,#d9d9d9);
+      z-index:-1;
+    }
+
+    .btn:hover{
+      transform:translateY(-4px) scale(1.03);
+      box-shadow:
+      0 0 25px rgba(255,255,255,0.25),
+      0 10px 40px rgba(255,255,255,0.12);
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:980px){
+
+      .hero{
+        grid-template-columns:1fr;
+      }
+
+      .image-side{
+        height:400px;
+      }
+
+      .content{
+        padding:45px 30px;
+      }
+
+      h1{
+        font-size:45px;
+      }
+    }
+
+    @media(max-width:600px){
+
+      .specs{
+        grid-template-columns:1fr;
+      }
+
+      h1{
+        font-size:38px;
+      }
+
+      .desc{
+        font-size:15px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <div class="bg"></div>
+  <div class="blur one"></div>
+  <div class="blur two"></div>
+
+  <section class="container">
+
+    <div class="card">
+
+      <div class="hero">
+
+        <!-- IMAGE -->
+        <div class="image-side">
+
+          <img src="bj_1.png">
+
+          <div class="image-overlay"></div>
+
+        </div>
+
+        <!-- CONTENT -->
+        <div class="content">
+
+          <div class="premium">
+            KRYO PREMIUM COLLECTION
+          </div>
+
+          <h1>
+            KRYO <span>Serie Pertama</span>
+          </h1>
+
+          <p class="desc">
+            Kaos premium dengan konsep luxury streetwear modern.
+            Menghadirkan tampilan elegan, clean, dan eksklusif
+            untuk kamu yang ingin tampil standout dengan kualitas terbaik.
+          </p>
+
+          <div class="specs">
+
+            <div class="spec">
+              <h3>Material Premium</h3>
+              <p>
+                Menggunakan bahan OVS 24s yang adem,
+                halus, dan nyaman dipakai harian.
+              </p>
+            </div>
+
+            <div class="spec">
+              <h3>Colorway</h3>
+              <p>
+                Warna hitam pekat dengan kesan luxury,
+                minimalis, dan classy.
+              </p>
+            </div>
+
+            <div class="spec">
+              <h3>Boxy Fit</h3>
+              <p>
+                Cuttingan boxy modern yang oversized,
+                trendy, dan premium fit.
+              </p>
+            </div>
+
+            <div class="spec">
+              <h3>Available Size</h3>
+              <p>
+                Tersedia ukuran S, M, L, dan XL
+                untuk berbagai style outfit.
+              </p>
+            </div>
+
+          </div>
+
+          <a
+            href="https://wa.me/6285725964184?text=Saya%20ingin%20pesan%20kaos%20KRYO%20Serie%20pertama%20ukuran[sesuaikan]"
+            target="_blank"
+            class="btn"
+          >
+            Pesan Sekarang
+          </a>
+
+        </div>
+        
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <script>
+    console.log("KRYO Luxury Website Loaded");
+  </script>
+
+</body>
+</html>
